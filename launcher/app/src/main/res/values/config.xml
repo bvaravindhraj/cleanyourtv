@@ -47,6 +47,13 @@
          Off by default; a theme can set "open_on_start_choice": true. -->
     <bool name="open_on_start_choice">false</bool>
 
+    <!-- An "Add picture" entry at the top of Launcher settings' Wallpaper list: it opens the TV's gallery (any app
+         that answers GET_CONTENT for images, e.g. com.android.gallery3d), and the picked photo, from a USB stick for
+         one, is scaled to the screen, saved into the theme's wallpapers/ collection and shown. No storage
+         permission: the gallery grants read access to that one picture. A theme push replaces the collection,
+         added pictures with it. Off by default; a theme can set "wallpaper_from_gallery": true. -->
+    <bool name="wallpaper_from_gallery">false</bool>
+
     <!-- Some TVs give their Live TV app no leanback entry point at all, so `live_tv_package` above
          resolves to nothing (TCL Android TV 9 on China-market sets is one). This action is then sent
          to that package instead, and the app starts normally. Leave empty to omit. -->
@@ -151,6 +158,22 @@
          with TV settings, Display, Network, Apps (re-enable an app) and Launcher settings, over whatever is on screen.
          Both keys can also be set from a theme's config.json ("settings_key_keycodes": [83]). -->
     <bool name="settings_key_panel">false</bool>
+    <!-- The header's Settings pill opens that same glass panel over Home, so Home stays on screen behind it, instead
+         of the TV's Settings (which some firmware draws on black). TV settings is the panel's first row; hold OK
+         keeps the launcher menu. Ignored with launcher_settings_button or top_menu. Off by default; a theme can set
+         "settings_pill_panel": true. -->
+    <bool name="settings_pill_panel">false</bool>
+    <!-- That quick settings panel in the Inputs, Wi-Fi and Settings pills' light see-through glass, with rounder
+         corners and pill-shaped rows, instead of the dark glass of the Inputs dropdown. Off by default; a theme can
+         set "quick_panel_glass": true. -->
+    <bool name="quick_panel_glass">false</bool>
+    <!-- The panel's focused row in this colour with white text ("#0A84FF"), instead of white with dark text. Empty
+         keeps white. A theme can set "quick_panel_accent": "#0A84FF". -->
+    <string name="quick_panel_accent" translatable="false"></string>
+    <!-- The panel's Display row. false hides it, for firmware whose display page opens empty (Xiaomi MiTV-AXSO0 keeps
+         Picture inside TV settings, Device Preferences, with no intent of its own). On by default; a theme can set
+         "quick_panel_display": false. -->
+    <bool name="quick_panel_display">true</bool>
 
     <!-- A force stop of the launcher (Settings, a cleaner app, am force-stop) takes HomeKeyService and InputKeyService
          off the enabled list. true: Home puts the helpers that were running back when it starts; one turned off in
@@ -204,7 +227,7 @@
          on, HomeKeyService (HOME_KEY_SERVICE=1) sends a Live TV window back to Home; the first key hands control
          to the user, so opening Live TV on purpose is never undone. The opposite of boot_to_live_tv, and ignored
          when that is on. A theme's config.json can set it too. Off by default. -->
-    <bool name="power_on_home">false</bool>
+    <bool name="power_on_home">true</bool>
 
     <!-- Show the Solar Hijri (Shamsi) date used in Iran and Afghanistan, e.g. "27 Mehr 1405", above the
          Gregorian date. -->
