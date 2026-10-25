@@ -40,6 +40,8 @@
     <string name="wallpaper_none">Ingen</string>
     <string name="wallpaper_applied">Baggrund ændret</string>
     <string name="wallpaper_theme_default">Temaets standard</string>
+    <string name="wallpaper_add">Tilføj billede…</string>
+    <string name="wallpaper_add_failed">Billedet kunne ikke læses</string>
     <string name="animations_state">Animationer: %1$s</string>
     <string name="advanced_effects">Avancerede effekter</string>
     <string name="advanced_effects_state">Avancerede effekter: %1$s</string>

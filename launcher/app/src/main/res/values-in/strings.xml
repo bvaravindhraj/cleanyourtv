@@ -36,6 +36,8 @@
     <string name="wallpaper_none">Tidak ada</string>
     <string name="wallpaper_applied">Wallpaper diubah</string>
     <string name="wallpaper_theme_default">Bawaan tema</string>
+    <string name="wallpaper_add">Tambahkan gambar…</string>
+    <string name="wallpaper_add_failed">Gambar tidak dapat dibaca</string>
     <string name="animations_state">Animasi: %1$s</string>
     <string name="advanced_effects">Efek Lanjut</string>
     <string name="advanced_effects_state">Efek lanjut: %1$s</string>

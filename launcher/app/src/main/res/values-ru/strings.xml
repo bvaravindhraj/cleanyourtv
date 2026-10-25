@@ -76,6 +76,8 @@
     <string name="wallpaper_none">Нет</string>
     <string name="wallpaper_applied">Обои изменены</string>
     <string name="wallpaper_theme_default">Как в теме</string>
+    <string name="wallpaper_add">Добавить изображение…</string>
+    <string name="wallpaper_add_failed">Не удалось прочитать изображение</string>
     <string name="animations_state">Анимация: %1$s</string>
     <string name="advanced_effects">Расширенные эффекты</string>
     <string name="advanced_effects_state">Расширенные эффекты: %1$s</string>

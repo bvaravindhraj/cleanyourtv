@@ -73,4 +73,6 @@
         <item quantity="other">%1$d aplikacija</item>
     </plurals>
     <string name="greeting_with_name">%1$s, %2$s</string>
+    <string name="wallpaper_add">Dodaj sliku…</string>
+    <string name="wallpaper_add_failed">Ta slika nije mogla da se pročita</string>
 </resources>

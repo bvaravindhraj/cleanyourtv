@@ -37,6 +37,8 @@
     <string name="wallpaper_none">Yoʻq</string>
     <string name="wallpaper_applied">Fon rasmi oʻzgartirildi</string>
     <string name="wallpaper_theme_default">Mavzu boʻyicha</string>
+    <string name="wallpaper_add">Rasm qoʻshish…</string>
+    <string name="wallpaper_add_failed">Rasmni oʻqib boʻlmadi</string>
     <string name="animations_state">Animatsiyalar: %1$s</string>
     <string name="advanced_effects">Qoʻshimcha effektlar</string>
     <string name="advanced_effects_state">Qoʻshimcha effektlar: %1$s</string>

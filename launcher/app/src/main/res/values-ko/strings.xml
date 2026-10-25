@@ -53,6 +53,8 @@
     <string name="wallpaper_none">없음</string>
     <string name="wallpaper_applied">배경화면 변경됨</string>
     <string name="wallpaper_theme_default">테마 기본값</string>
+    <string name="wallpaper_add">사진 추가…</string>
+    <string name="wallpaper_add_failed">사진을 읽을 수 없습니다</string>
     <string name="animations_state">애니메이션: %1$s</string>
     <string name="advanced_effects">고급 효과</string>
     <string name="advanced_effects_state">고급 효과: %1$s</string>

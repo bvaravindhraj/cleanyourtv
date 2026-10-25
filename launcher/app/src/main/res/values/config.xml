@@ -47,6 +47,14 @@
          Off by default; a theme can set "open_on_start_choice": true. -->
     <bool name="open_on_start_choice">false</bool>
 
+    <!-- An "Add picture" entry at the top of Launcher settings' Wallpaper list: it asks the TV for one image
+         (GET_CONTENT, answered by a file manager such as X-plore, or a gallery), saves a copy scaled to just
+         cover 1920x1080 into the theme's wallpapers/ collection and shows it. No storage permission: the picker grants
+         read access to that one picture. A TV gallery made for touch may list photos it cannot pick with a remote.
+         Pushing a theme replaces the collection, added pictures with it. Off by default; a theme can set
+         "wallpaper_from_gallery": true. -->
+    <bool name="wallpaper_from_gallery">false</bool>
+
     <!-- Some TVs give their Live TV app no leanback entry point at all, so `live_tv_package` above
          resolves to nothing (TCL Android TV 9 on China-market sets is one). This action is then sent
          to that package instead, and the app starts normally. Leave empty to omit. -->

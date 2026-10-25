@@ -96,4 +96,6 @@
         <item quantity="other">%1$dটি অ্যাপ</item>
     </plurals>
     <string name="greeting_with_name">%1$s, %2$s</string>
+    <string name="wallpaper_add">ছবি যোগ করুন…</string>
+    <string name="wallpaper_add_failed">ছবিটি পড়া যায়নি</string>
 </resources>

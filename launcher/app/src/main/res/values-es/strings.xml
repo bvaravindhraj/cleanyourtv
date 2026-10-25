@@ -76,6 +76,8 @@
     <string name="wallpaper_none">Ninguno</string>
     <string name="wallpaper_applied">Fondo cambiado</string>
     <string name="wallpaper_theme_default">Predeterminado del tema</string>
+    <string name="wallpaper_add">Añadir imagen…</string>
+    <string name="wallpaper_add_failed">No se pudo leer la imagen</string>
     <string name="quick_picture">Imagen</string>
     <string name="quick_network">Red</string>
     <string name="quick_apps">Aplicaciones</string>

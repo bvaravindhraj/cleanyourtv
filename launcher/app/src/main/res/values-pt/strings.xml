@@ -105,6 +105,8 @@
     <string name="wallpaper_none">Nenhum</string>
     <string name="wallpaper_applied">Papel de parede alterado</string>
     <string name="wallpaper_theme_default">Padrão do tema</string>
+    <string name="wallpaper_add">Adicionar imagem…</string>
+    <string name="wallpaper_add_failed">Não foi possível ler a imagem</string>
     <string name="animations_state">Animações: %1$s</string>
     <string name="advanced_effects">Efeitos avançados</string>
     <string name="advanced_effects_state">Efeitos avançados: %1$s</string>

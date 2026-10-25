@@ -95,4 +95,6 @@
         <item quantity="other">%1$d تطبيق</item>
     </plurals>
     <string name="greeting_with_name">%1$s، %2$s</string>
+    <string name="wallpaper_add">إضافة صورة…</string>
+    <string name="wallpaper_add_failed">تعذّرت قراءة هذه الصورة</string>
 </resources>

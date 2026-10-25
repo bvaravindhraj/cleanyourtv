@@ -15,6 +15,8 @@
     <string name="wallpaper_none">无</string>
     <string name="wallpaper_applied">壁纸已更改</string>
     <string name="wallpaper_theme_default">主题默认</string>
+    <string name="wallpaper_add">添加图片…</string>
+    <string name="wallpaper_add_failed">无法读取该图片</string>
     <string name="animations_state">动态效果：%1$s</string>
     <string name="advanced_effects">高级动态效果</string>
     <string name="advanced_effects_state">高级动态效果：%1$s</string>

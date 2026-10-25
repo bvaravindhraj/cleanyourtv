@@ -73,6 +73,8 @@
     <string name="wallpaper_none">Cap</string>
     <string name="wallpaper_applied">Fons de pantalla canviat</string>
     <string name="wallpaper_theme_default">El del tema</string>
+    <string name="wallpaper_add">Afegeix una imatge…</string>
+    <string name="wallpaper_add_failed">No s\'ha pogut llegir la imatge</string>
     <string name="quick_picture">Pantalla</string>
     <string name="quick_network">Xarxa</string>
     <string name="quick_apps">Aplicacions</string>

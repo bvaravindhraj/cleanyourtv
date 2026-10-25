@@ -91,4 +91,6 @@
         <item quantity="other">%1$d 個應用程式</item>
     </plurals>
     <string name="greeting_with_name">%1$s，%2$s</string>
+    <string name="wallpaper_add">新增圖片…</string>
+    <string name="wallpaper_add_failed">無法讀取這張圖片</string>
 </resources>

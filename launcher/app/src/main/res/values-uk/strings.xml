@@ -53,6 +53,8 @@
     <string name="wallpaper_none">Немає</string>
     <string name="wallpaper_applied">Шпалери змінено</string>
     <string name="wallpaper_theme_default">Як у темі</string>
+    <string name="wallpaper_add">Додати зображення…</string>
+    <string name="wallpaper_add_failed">Не вдалося прочитати зображення</string>
     <string name="animations_state">Анімації: %1$s</string>
     <string name="advanced_effects">Розширені ефекти</string>
     <string name="advanced_effects_state">Розширені ефекти: %1$s</string>

@@ -34,6 +34,8 @@
     <string name="wallpaper_none">Žádná</string>
     <string name="wallpaper_applied">Tapeta změněna</string>
     <string name="wallpaper_theme_default">Podle motivu</string>
+    <string name="wallpaper_add">Přidat obrázek…</string>
+    <string name="wallpaper_add_failed">Obrázek se nepodařilo načíst</string>
     <string name="animations_state">Animace: %1$s</string>
     <string name="advanced_effects">Pokročilé efekty</string>
     <string name="advanced_effects_state">Pokročilé efekty: %1$s</string>

@@ -37,6 +37,8 @@
     <string name="wallpaper_none">Geen</string>
     <string name="wallpaper_applied">Achtergrond gewijzigd</string>
     <string name="wallpaper_theme_default">Standaard van het thema</string>
+    <string name="wallpaper_add">Afbeelding toevoegen…</string>
+    <string name="wallpaper_add_failed">De afbeelding kon niet worden gelezen</string>
     <string name="animations_state">Animaties: %1$s</string>
     <string name="advanced_effects">Geavanceerde effecten</string>
     <string name="advanced_effects_state">Geavanceerde effecten: %1$s</string>

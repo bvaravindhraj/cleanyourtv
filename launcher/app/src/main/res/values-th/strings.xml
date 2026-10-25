@@ -65,4 +65,6 @@
         <item quantity="other">%1$d แอป</item>
     </plurals>
     <string name="greeting_with_name">%1$s %2$s</string>
+    <string name="wallpaper_add">เพิ่มรูปภาพ…</string>
+    <string name="wallpaper_add_failed">อ่านรูปภาพนี้ไม่ได้</string>
 </resources>

@@ -53,6 +53,8 @@
     <string name="wallpaper_none">Nessuno</string>
     <string name="wallpaper_applied">Sfondo cambiato</string>
     <string name="wallpaper_theme_default">Predefinito del tema</string>
+    <string name="wallpaper_add">Aggiungi immagine…</string>
+    <string name="wallpaper_add_failed">Impossibile leggere l\'immagine</string>
     <string name="animations_state">Animazioni: %1$s</string>
     <string name="advanced_effects">Effetti avanzati</string>
     <string name="advanced_effects_state">Effetti avanzati: %1$s</string>
