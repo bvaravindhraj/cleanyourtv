@@ -147,6 +147,12 @@ final class Config {
     final int backgroundColor;
     /** Time-of-day backdrop, 0 to 100 (config.xml, sky_intensity); 0 keeps the plain background. */
     final int skyIntensity;
+    /** Minutes between the walking buddy's visits to Home (config.xml, buddy_minutes); 0 turns it off. */
+    final int buddyMinutes;
+    /** The weather now under the date and over the wallpaper, from the Weather add-on (config.xml, weather). */
+    final boolean weather;
+    /** With weather on, the moving scene over the wallpaper too (config.xml, weather_scene); off leaves the line only. */
+    final boolean weatherScene;
     /** Remote keycodes that open Settings through HomeKeyService (config.xml, settings_key_keycodes). */
     final int[] settingsKeycodes;
     /** Extra keycodes that open the input switcher in InputKeyService (config.xml input_key_keycodes). */
@@ -263,7 +269,7 @@ final class Config {
                    String sourcePanelExtra, boolean coocaaSources, String inputAction,
                    String inputUriScheme, int columns, int rowsBelowDock, boolean animations, boolean advancedEffects,
                    boolean shamsiDate, String greetingName, boolean moduleCards, boolean reducedMotion, boolean bootToLiveTv, boolean openOnStartChoice, boolean wallpaperFromGallery, boolean dockTitle, boolean dockRow, boolean topMenu, boolean launcherSettingsButton, boolean reorderButton, boolean showNetworkPill, boolean showInputsPill, boolean iconOnlyButtons, boolean iconOnlyInputs, boolean libraryButton, boolean showLibraryPill, int wifiLabelWidth, boolean alwaysShowNames, boolean wallpaperTrueColor, boolean focusOvershoot, String vpnApp,
-                   boolean showHomeSettingsShortcut, boolean showStats, boolean appLibrary, boolean appLibrarySelection, boolean libraryOkOpens, boolean uniformTiles, int backgroundColor, int skyIntensity,
+                   boolean showHomeSettingsShortcut, boolean showStats, boolean appLibrary, boolean appLibrarySelection, boolean libraryOkOpens, boolean uniformTiles, int backgroundColor, int skyIntensity, int buddyMinutes, boolean weather, boolean weatherScene,
                    int[] settingsKeycodes, boolean settingsKeyPanel, boolean settingsPillPanel, boolean quickPanelGlass, int quickPanelAccent, boolean quickPanelDisplay, boolean restoreKeyServices, boolean wallpaperEnabled, File wallpaper, List<File> wallpapers,
                    int wallpaperRotationMinutes, int wallpaperDim, int dockOpacity, String wallpaperOrder, boolean overlayApplied,
                    Festival festival, int[] inputKeycodes, List<String> appKeys, String stockHomeRedirect,
@@ -331,6 +337,9 @@ final class Config {
         this.uniformTiles = uniformTiles;
         this.backgroundColor = backgroundColor;
         this.skyIntensity = skyIntensity;
+        this.buddyMinutes = buddyMinutes;
+        this.weather = weather;
+        this.weatherScene = weatherScene;
         this.settingsKeycodes = settingsKeycodes;
         this.settingsKeyPanel = settingsKeyPanel;
         this.settingsPillPanel = settingsPillPanel;
@@ -454,6 +463,9 @@ final class Config {
         boolean uniformTiles = res.getBoolean(R.bool.uniform_tiles);
         int background = 0xFF000000;
         int skyIntensity = res.getInteger(R.integer.sky_intensity);
+        int buddyMinutes = res.getInteger(R.integer.buddy_minutes);
+        boolean weather = res.getBoolean(R.bool.weather);
+        boolean weatherScene = res.getBoolean(R.bool.weather_scene);
         int[] settingsKeycodes = res.getIntArray(R.array.settings_key_keycodes);
         boolean settingsKeyPanel = res.getBoolean(R.bool.settings_key_panel);
         boolean settingsPillPanel = res.getBoolean(R.bool.settings_pill_panel);
@@ -564,6 +576,9 @@ final class Config {
             uniformTiles = bool(json, "uniform_tiles", uniformTiles);
             background = color(json, "background_color", background);
             skyIntensity = integer(json, "sky_intensity", skyIntensity, 0, 100);
+            buddyMinutes = integer(json, "buddy_minutes", buddyMinutes, 0, 1440);
+            weather = bool(json, "weather", weather);
+            weatherScene = bool(json, "weather_scene", weatherScene);
             settingsKeycodes = intArray(json, "settings_key_keycodes", settingsKeycodes);
             settingsKeyPanel = bool(json, "settings_key_panel", settingsKeyPanel);
             settingsPillPanel = bool(json, "settings_pill_panel", settingsPillPanel);
@@ -659,7 +674,7 @@ final class Config {
                 openOnStartChoice, wallpaperFromGallery, dockTitle, dockRow, topMenu, launcherSettingsButton, reorderButton, showNetworkPill, showInputsPill,
                 iconOnlyButtons, iconOnlyInputs, libraryButton, showLibraryPill, wifiLabelWidth, alwaysShowNames, wallpaperTrueColor, focusOvershoot,
                 vpn, homeSettings, showStats, library, librarySelection, libraryOkOpens, uniformTiles, background,
-                Math.max(0, Math.min(100, skyIntensity)), settingsKeycodes, settingsKeyPanel, settingsPillPanel, quickPanelGlass, quickPanelAccent, quickPanelDisplay, restoreKeyServices, wallpaperEnabled, wallpaper,
+                Math.max(0, Math.min(100, skyIntensity)), Math.max(0, buddyMinutes), weather, weatherScene, settingsKeycodes, settingsKeyPanel, settingsPillPanel, quickPanelGlass, quickPanelAccent, quickPanelDisplay, restoreKeyServices, wallpaperEnabled, wallpaper,
                 wallpapers, rotationMinutes, wallpaperDim, dockOpacity, wallpaperOrder, applied, festival, inputKeycodes, appKeys, stockHomeRedirect,
                 json == null ? Collections.emptyList() : raceCalendar(json), cinematic, ambientGlow, appGlow, fadeRows,
                 Math.max(0, idleClockMinutes), keyFilter, dockGlass, glowStyle, wallpaperCaptions, handleViewInputs, tileMenu, dockEvenPadding,

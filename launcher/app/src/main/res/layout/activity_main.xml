@@ -12,6 +12,13 @@
         android:layout_height="match_parent"
         android:importantForAccessibility="no" />
 
+    <!-- The weather over the wallpaper (config.xml weather); hidden without it. -->
+    <com.gathin.tvhome.WeatherView
+        android:id="@+id/weatherScene"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:importantForAccessibility="no" />
+
     <!-- Cinematic top shelf (cinematic_home): the focused dock app's artwork, a few pixels across and
          stretched over the screen, which softens it like a blur without the cost of one. Hidden otherwise. -->
     <ImageView
@@ -286,6 +293,21 @@
                             android:fontFamily="@font/outfit_regular"
                             android:letterSpacing="0.14"
                             android:textAllCaps="true"
+                            android:visibility="gone" />
+
+                        <!-- The weather now ("29° · Light rain · Chennai"), shown when weather is on and the add-on has a reading. -->
+                        <TextView
+                            android:id="@+id/weatherLine"
+                            android:gravity="left"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="6dp"
+                            android:singleLine="true"
+                            android:ellipsize="end"
+                            android:textColor="#D9FFFFFF"
+                            android:textSize="15sp"
+                            android:fontFamily="@string/font_regular"
+                            android:letterSpacing="0.04"
                             android:visibility="gone" />
                     </LinearLayout>
                 </LinearLayout>

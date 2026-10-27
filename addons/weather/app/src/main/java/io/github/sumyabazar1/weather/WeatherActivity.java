@@ -102,7 +102,10 @@ public final class WeatherActivity extends Activity {
             Forecast.Report result = report;
             main.post(() -> {
                 if (isDestroyed()) return;
-                if (result != null) show(result);
+                if (result != null) {
+                    show(result);
+                    NowProvider.save(this, result);
+                }
                 else if (!shown) message.setText(R.string.offline);
                 main.postDelayed(tick, result != null ? Forecast.REFRESH_MS : Forecast.RETRY_MS);
             });

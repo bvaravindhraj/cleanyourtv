@@ -401,6 +401,19 @@
          sets its opacity. Around 60 reads clearly without hiding a wallpaper. Can also be set with
          "sky_intensity": 60 in a theme's config.json. -->
     <integer name="sky_intensity">0</integer>
+    <!-- A little yellow buddy (BuddyView) walks along the top of the dock band every this many minutes while Home
+         is on screen, stops to wave and walks on; any remote key makes him hop. He wears a scarf at night, carries
+         a diya around Diwali, a Santa hat at Christmas and flies a kite at Sankranti. 0 turns him off; reduced
+         motion and a hidden dock band keep him away too. Can also be set with "buddy_minutes": 4 in a theme. -->
+    <integer name="buddy_minutes">0</integer>
+    <!-- The weather now ("29° · Light rain · Chennai") under the date, and the same weather over the wallpaper: rain,
+         lightning, snow, a bright sun, stars, passing clouds, wind. Needs the Weather add-on (addons/weather) with a
+         city picked in it; the launcher reads it from the add-on and never goes online itself. The scene moves for
+         90 seconds after Home comes up or a key is pressed, then holds still. Can also be set with "weather": true. -->
+    <bool name="weather">false</bool>
+    <!-- With weather on: false keeps the line under the date and drops the moving scene over the wallpaper.
+         Can also be set with "weather_scene": false in a theme. -->
+    <bool name="weather_scene">true</bool>
     <!-- Where the TV is, in decimal degrees, so the sky's sunrise and sunset glows follow the real sun
          (computed on the TV, no network). Empty: a fixed temperate day, sunset glow around 19:00.
          Vilnius: 54.69 and 25.28. -->

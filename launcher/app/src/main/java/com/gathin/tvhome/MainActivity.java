@@ -7,6 +7,7 @@ import android.app.Dialog;
 import android.content.ActivityNotFoundException;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -17,6 +18,7 @@ import android.content.pm.ResolveInfo;
 import android.content.pm.ChangedPackages;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
+import android.database.ContentObserver;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -24,6 +26,7 @@ import android.graphics.LinearGradient;
 import android.graphics.Paint;
 import android.graphics.RadialGradient;
 import android.graphics.Rect;
+import android.graphics.RectF;
 import android.graphics.Shader;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
@@ -105,6 +108,8 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     static int COLUMNS = 4;
     private boolean rtlAppGrid;
     private static final long MINUTE_MS = 60_000L;
+    /** The walking buddy's first visit after Home comes up. */
+    private static final long BUDDY_FIRST_MS = 8_000L;
     private static final long STATS_MS = 10_000L;
     /**
      * 2025-01-01. TVs without a clock battery boot at the epoch (08:00 in China) and keep it until network
@@ -229,6 +234,40 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     private Festival festival = Festival.NONE;
     private boolean festive;
     private DiyaDrawable diya;
+    /** The walking buddy (config.xml buddy_minutes), or null when he is off; he stands on the dock band. */
+    private BuddyView buddy;
+    /** config.xml weather: the line under the date and the scene over the wallpaper, from the Weather add-on. */
+    private boolean weatherOn;
+    private WeatherView weatherScene;
+    private TextView weatherLine;
+    private boolean weatherReading;
+    private boolean weatherSceneOn;
+    private final ContentObserver weatherObserver = new ContentObserver(new Handler(Looper.getMainLooper())) {
+        @Override
+        public void onChange(boolean selfChange) {
+            readWeather();
+        }
+    };
+    private DockDecoration dockDecoration;
+    private long buddyEveryMs;
+    private final int[] buddyAt = new int[2];
+    private final Runnable buddyWalk = new Runnable() {
+        @Override
+        public void run() {
+            handler.postDelayed(this, buddyEveryMs);
+            // Not over a menu, a dialog or a tile being moved: only on Home as it normally looks.
+            if (!hasWindowFocus() || reordering || openPopup != null || cardPrompt != null || dockDecoration == null) return;
+            RectF band = dockDecoration.band();
+            if (band.isEmpty()) return;
+            grid.getLocationInWindow(buddyAt);
+            int gx = buddyAt[0], gy = buddyAt[1];
+            root.getLocationInWindow(buddyAt);
+            float dx = gx - buddyAt[0], dy = gy - buddyAt[1];
+            Calendar now = Calendar.getInstance();
+            buddy.walk(band.left + dx, band.right + dx, band.top + dy,
+                    BuddyView.outfit(LocalDate.now(), now.get(Calendar.HOUR_OF_DAY), festive ? festival.name : ""), null);
+        }
+    };
     private BellDrawable bell;
     private MarigoldDrawable marigold;
     private int greetingColor;
@@ -419,6 +458,17 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         wallpaperPlayer = new WallpaperPlayer(this, root, cfg);
         sky = findViewById(R.id.sky);
         sky.setIntensity(cfg.skyIntensity);
+        weatherOn = cfg.weather;
+        // Reduced motion: the line only; the scene would move.
+        weatherSceneOn = cfg.weatherScene && !reducedMotion;
+        weatherScene = findViewById(R.id.weatherScene);
+        weatherLine = findViewById(R.id.weatherLine);
+        if (cfg.buddyMinutes > 0 && !reducedMotion && cfg.dockRow && cfg.dockBand) {
+            buddyEveryMs = cfg.buddyMinutes * MINUTE_MS;
+            buddy = new BuddyView(this);
+            int size = BuddyView.sizePx(density);
+            root.addView(buddy, new FrameLayout.LayoutParams(size, size));
+        }
         glass = findViewById(R.id.glass);
         glass.setStyle(cfg.glassStyle);
         if (festive) glass.setAccent(festival.accentColor());
@@ -571,7 +621,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
             public void onChildViewDetachedFromWindow(@NonNull View v) {
             }
         });
-        if (dockRow) grid.addItemDecoration(new DockDecoration(COLUMNS, density, cinematic, cfg.alwaysShowNames, cfg.dockOpacity, cfg.dockGlass, cfg.dockEvenPadding, cfg.dockBand,
+        if (dockRow) grid.addItemDecoration(dockDecoration = new DockDecoration(COLUMNS, density, cinematic, cfg.alwaysShowNames, cfg.dockOpacity, cfg.dockGlass, cfg.dockEvenPadding, cfg.dockBand,
                 singleRow, cfg.dockBandAll));
         if (cfg.fadeRows) TopFade.attach(grid, 48 * density);
         // Reduced motion: the tiles are simply there, with no entrance (reloadApps skips it there too).
@@ -912,6 +962,13 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         }
         updateClockVisibility();
         tileRefresh.onStart();
+        if (weatherOn) {
+            try {
+                getContentResolver().registerContentObserver(WeatherNow.URI, false, weatherObserver);
+            } catch (SecurityException e) {
+                // no Weather add-on: readWeather finds nothing either
+            }
+        }
     }
 
     @Override
@@ -963,6 +1020,12 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         sky.update();
         wallpaperPlayer.start();
         handler.postDelayed(minuteTick, MINUTE_MS);
+        // The first walk soon after Home comes up, then every buddy_minutes while it stays.
+        if (buddy != null) handler.postDelayed(buddyWalk, BUDDY_FIRST_MS);
+        if (weatherOn) {
+            readWeather();
+            weatherScene.wake();
+        }
         if (festive && diya != null) {
             diya.start();
             LocalDate today = LocalDate.now();
@@ -1136,6 +1199,11 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         ambient.animate().cancel();
         heroArt.animate().cancel();
         handler.removeCallbacks(minuteTick);
+        if (buddy != null) {
+            handler.removeCallbacks(buddyWalk);
+            buddy.stop();
+        }
+        weatherScene.hold();
         stopStats();
         if (diya != null) diya.stop();
         cancelPendingFocusScroll();
@@ -1153,6 +1221,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         handler.removeCallbacks(clockCheck);
         stopped = true;
         tileRefresh.onStop();
+        if (weatherOn) getContentResolver().unregisterContentObserver(weatherObserver);
     }
 
     /**
@@ -1233,6 +1302,10 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
      */
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
+        if (event.getAction() == KeyEvent.ACTION_DOWN && event.getRepeatCount() == 0) {
+            if (buddy != null) buddy.hop();
+            if (weatherOn) weatherScene.wake();
+        }
         if (handleSettingsKey(event)) return true;
         if (tileMenuEnabled && !reordering && openPopup == null && cardPrompt == null
                 && event.getKeyCode() == KeyEvent.KEYCODE_MENU) {
@@ -2718,6 +2791,23 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
             if (previous != null) previous.onFocusChange(v, focused);
             if (focused) action.run();
         });
+    }
+
+    /** Asks the Weather add-on for the weather now, off the main thread, and shows it (or hides it without one). */
+    private void readWeather() {
+        if (!weatherOn || weatherReading) return;
+        weatherReading = true;
+        ContentResolver resolver = getContentResolver();
+        new Thread(() -> {
+            WeatherNow now = WeatherNow.read(resolver);
+            handler.post(() -> {
+                weatherReading = false;
+                if (isDestroyed()) return;
+                weatherLine.setVisibility(now == null ? View.GONE : View.VISIBLE);
+                if (now != null) weatherLine.setText(now.line());
+                weatherScene.show(now == null || !weatherSceneOn ? 0 : now.effects());
+            });
+        }, "weather").start();
     }
 
     private void playPetalShower() {
