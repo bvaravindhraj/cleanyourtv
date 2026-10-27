@@ -414,6 +414,12 @@
     <!-- With weather on: false keeps the line under the date and drops the moving scene over the wallpaper.
          Can also be set with "weather_scene": false in a theme. -->
     <bool name="weather_scene">true</bool>
+    <!-- A soundbar on HDMI ARC that is slow to answer at power-on: the TV gives up on it and plays through its own
+         speakers. true makes Home check 40 seconds after each boot and, if the TV switched system audio off by itself,
+         switch it back on and turn HDMI control off and on, which brings the soundbar back (ArcRescue). It also undoes a
+         system audio switch-off made by hand, at the next boot. Needs WRITE_SECURE_SETTINGS, which build-and-install
+         grants with the remote helper. Can also be set with "arc_rescue": true in a theme. -->
+    <bool name="arc_rescue">false</bool>
     <!-- Where the TV is, in decimal degrees, so the sky's sunrise and sunset glows follow the real sun
          (computed on the TV, no network). Empty: a fixed temperate day, sunset glow around 19:00.
          Vilnius: 54.69 and 25.28. -->
